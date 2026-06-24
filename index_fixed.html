@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="ur" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Computer Skills Hub — by Tahir Saeed</title>
+  <style>
+    @import url('data:text/css,');
+  </style>
+  <style>
+    :root {
+      --bg:        #0d0f1a;
+      --surface:   #141728;
+      --card:      #1b1f35;
+      --border:    #252a46;
+      --accent1:   #6c63ff;
+      --accent2:   #00d4aa;
+      --accent3:   #ff6584;
+      --accent4:   #ffc857;
+      --text:      #e8eaf6;
+      --muted:     #8892b0;
+      --white:     #ffffff;
+      --radius:    14px;
+      --shadow:    0 8px 32px rgba(108,99,255,.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0d0f1a 0%, #1a1040 50%, #0d1a2a 100%);
+      text-align: center;
+      padding: 80px 20px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(108,99,255,.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(108,99,255,.18);
+      border: 1px solid var(--accent1);
+      color: var(--accent1);
+      font-size: .75rem; letter-spacing: .12em; text-transform: uppercase;
+      padding: 6px 18px; border-radius: 50px; margin-bottom: 22px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: 1.1rem; color: var(--muted); max-width: 600px; margin: 0 auto 36px;
+    }
+    .hero-stats {
+      display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent2); }
+    .stat-label { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+
+    /* ── NAV TABS ── */
+    .tabs-wrapper {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,26,.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .tabs {
+      display: flex; overflow-x: auto; gap: 0;
+      max-width: 1100px; margin: 0 auto; padding: 0 16px;
+      scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex-shrink: 0;
+      padding: 18px 28px;
+      background: none; border: none; border-bottom: 3px solid transparent;
+      color: var(--muted); font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: .92rem; font-weight: 600; cursor: pointer;
+      transition: color .25s, border-color .25s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--accent1); border-bottom-color: var(--accent1); }
+
+    /* ── SECTIONS ── */
+    .section { display: none; padding: 50px 16px 80px; max-width: 1100px; margin: 0 auto; }
+    .section.active { display: block; }
+
+    .section-title {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .section-sub { color: var(--muted); margin-bottom: 40px; font-size: .95rem; }
+
+    /* ── FORMULA / SHORTKEY CARDS ── */
+    .grid { display: grid; gap: 22px; }
+    .grid-2 { grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 26px;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: var(--accent1);
+    }
+    .card-tag {
+      display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; padding: 3px 10px; border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .tag-math { background: rgba(108,99,255,.2); color: var(--accent1); }
+    .tag-text { background: rgba(0,212,170,.2); color: var(--accent2); }
+    .tag-logical { background: rgba(255,101,132,.2); color: var(--accent3); }
+    .tag-date { background: rgba(255,200,87,.2); color: var(--accent4); }
+    .tag-lookup { background: rgba(108,99,255,.15); color: #a78bfa; }
+    .tag-stat { background: rgba(0,212,170,.15); color: #34d399; }
+    .tag-financial { background: rgba(255,200,87,.15); color: var(--accent4); }
+
+    .card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+    .card p { font-size: .88rem; color: var(--muted); margin-bottom: 14px; }
+
+    .formula-box {
+      background: #0d0f1a;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent1);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: .85rem;
+      color: var(--accent2);
+      word-break: break-all;
+      margin-bottom: 10px;
+    }
+    .example-box {
+      background: rgba(0,212,170,.06);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: .83rem;
+      color: var(--text);
+    }
+    .example-box strong { color: var(--accent4); }
+
+    /* ── SHORTCUT TABLE ── */
+    .shortcut-group { margin-bottom: 44px; }
+    .shortcut-group h2 {
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--accent2);
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .shortcut-group h2::before {
+      content: ''; display: inline-block;
+      width: 4px; height: 20px; border-radius: 2px;
+      background: var(--accent2);
+    }
+
+    .shortcut-table { width: 100%; border-collapse: collapse; }
+    .shortcut-table th, .shortcut-table td {
+      text-align: left; padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: .88rem;
+    }
+    .shortcut-table th {
+      color: var(--muted); font-weight: 600; text-transform: uppercase;
+      font-size: .75rem; letter-spacing: .08em;
+    }
+    .shortcut-table tr:hover td { background: rgba(108,99,255,.06); }
+
+    kbd {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid #3a3f60;
+      border-bottom: 3px solid #3a3f60;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: .8rem;
+      color: var(--accent1);
+      white-space: nowrap;
+    }
+    kbd + kbd { margin-left: 4px; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .88rem;
+    }
+    footer .credit {
+      font-size: 1.1rem; font-weight: 700;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      display: block; margin-bottom: 6px;
+    }
+
+    /* ── SEARCH ── */
+    .search-bar {
+      display: flex; gap: 10px; margin-bottom: 32px;
+    }
+    .search-bar input {
+      flex: 1; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 18px;
+      color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: .92rem;
+      outline: none; transition: border-color .2s;
+    }
+    .search-bar input:focus { border-color: var(--accent1); }
+    .search-bar input::placeholder { color: var(--muted); }
+
+    @media (max-width: 600px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🎓 Complete Computer Skills Reference</div>
+  <h1>Computer Skills Hub</h1>
+  <p>MS Excel Formulas • MS Word Shortcuts • Computer Shortcuts — Sab kuch ek jagah, Examples ke sath!</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">60+</div><div class="stat-label">Excel Formulas</div></div>
+    <div class="stat"><div class="stat-num">80+</div><div class="stat-label">Word Shortcuts</div></div>
+    <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Computer Shortcuts</div></div>
+  </div>
+</section>
+
+<!-- TABS -->
+<div class="tabs-wrapper">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('excel',this)">📊 MS Excel Formulas</button>
+    <button class="tab-btn" onclick="showTab('word',this)">📝 MS Word Shortcuts</button>
+    <button class="tab-btn" onclick="showTab('computer',this)">💻 Computer Shortcuts</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 1: MS EXCEL
+═══════════════════════════════════════════════ -->
+<div id="excel" class="section active">
+  <div class="section-title" style="color:var(--accent1)">📊 MS Excel — All Formulas</div>
+  <div class="section-sub">Har formula ka naam, kaam, aur example — beginners se advanced tak</div>
+
+  <!-- MATH & STATISTICS -->
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent1)">➕ Math & Basic Formulas</h2>
+    <div class="grid grid-2">
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>SUM — Jama karna</h3>
+        <p>Cells ki values ko jama karta hai.</p>
+        <div class="formula-box">=SUM(A1:A10)</div>
+        <div class="example-box"><strong>Example:</strong> A1=100, A2=200, A3=300 → =SUM(A1:A3) = <strong>600</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>AVERAGE — Ausat Nikalna</h3>
+        <p>Numbers ka average nikalti hai.</p>
+        <div class="formula-box">=AVERAGE(A1:A10)</div>
+        <div class="example-box"><strong>Example:</strong> 10,20,30 → =AVERAGE(A1:A3) = <strong>20</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>MAX — Sab se Bara</h3>
+        <p>Range mein sab se badi value deta hai.</p>
+        <div class="formula-box">=MAX(A1:A10)</div>
+        <div class="example-box"><strong>Example:</strong> 5,15,9,22,3 → =MAX(A1:A5) = <strong>22</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>MIN — Sab se Chota</h3>
+        <p>Range mein sab se choti value deta hai.</p>
+        <div class="formula-box">=MIN(A1:A10)</div>
+        <div class="example-box"><strong>Example:</strong> 5,15,9,22,3 → =MIN(A1:A5) = <strong>3</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>COUNT — Girna</h3>
+        <p>Sirf numbers wali cells ko ginta hai.</p>
+        <div class="formula-box">=COUNT(A1:A10)</div>
+        <div class="example-box"><strong>Example:</strong> A1=5, A2="Ali", A3=9 → =COUNT(A1:A3) = <strong>2</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>COUNTA — Sab Count</h3>
+        <p>Khali nahi wali sari cells girnti hai.</p>
+        <div class="formula-box">=COUNTA(A1:A10)</div>
+        <div class="example-box"><strong>Example:</strong> A1=5, A2="Ali", A3="" → =COUNTA(A1:A3) = <strong>2</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>PRODUCT — Zarb</h3>
+        <p>Sari values ko aapas mein multiply karta hai.</p>
+        <div class="formula-box">=PRODUCT(A1:A3)</div>
+        <div class="example-box"><strong>Example:</strong> A1=2, A2=3, A3=4 → =PRODUCT(A1:A3) = <strong>24</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>MOD — Baqiya</h3>
+        <p>Taqseem ka baqiya (remainder) deta hai.</p>
+        <div class="formula-box">=MOD(number, divisor)</div>
+        <div class="example-box"><strong>Example:</strong> =MOD(10, 3) = <strong>1</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>POWER — Quwwat</h3>
+        <p>Kisi number ko power mein uthata hai.</p>
+        <div class="formula-box">=POWER(number, power)</div>
+        <div class="example-box"><strong>Example:</strong> =POWER(2, 8) = <strong>256</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>SQRT — Jazar</h3>
+        <p>Square root nikalti hai.</p>
+        <div class="formula-box">=SQRT(number)</div>
+        <div class="example-box"><strong>Example:</strong> =SQRT(144) = <strong>12</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>ABS — Mutlaq Qeemat</h3>
+        <p>Negative number ko positive bana deta hai.</p>
+        <div class="formula-box">=ABS(number)</div>
+        <div class="example-box"><strong>Example:</strong> =ABS(-75) = <strong>75</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>ROUND — Takhmina</h3>
+        <p>Number ko decimal places tak round karta hai.</p>
+        <div class="formula-box">=ROUND(number, num_digits)</div>
+        <div class="example-box"><strong>Example:</strong> =ROUND(3.14159, 2) = <strong>3.14</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>ROUNDUP / ROUNDDOWN</h3>
+        <p>Upar ya neeche round karta hai.</p>
+        <div class="formula-box">=ROUNDUP(3.11, 1) → 3.2<br>=ROUNDDOWN(3.99, 1) → 3.9</div>
+        <div class="example-box"><strong>Use:</strong> Price ya percentage display ke liye.</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>INT — Poora Adad</h3>
+        <p>Decimal part hata ke sirf integer deta hai.</p>
+        <div class="formula-box">=INT(number)</div>
+        <div class="example-box"><strong>Example:</strong> =INT(7.9) = <strong>7</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>SUMIF — Shart ke Sath Jama</h3>
+        <p>Sirf wahi cells jama karta hai jo shart puri karein.</p>
+        <div class="formula-box">=SUMIF(range, criteria, sum_range)</div>
+        <div class="example-box"><strong>Example:</strong> =SUMIF(A1:A10,"&gt;50",B1:B10) — Jahan A&gt;50 wahan B ki sum</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-math">Math</span>
+        <h3>SUMIFS — Multiple Conditions</h3>
+        <p>Kai shart ke sath sum karta hai.</p>
+        <div class="formula-box">=SUMIFS(sum_range, range1, crit1, range2, crit2)</div>
+        <div class="example-box"><strong>Example:</strong> Sales &gt;1000 AND City="Lahore" wali sum</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-stat">Stats</span>
+        <h3>MEDIAN — Darmiyan</h3>
+        <p>Middle value nikalti hai.</p>
+        <div class="formula-box">=MEDIAN(A1:A10)</div>
+        <div class="example-box"><strong>Example:</strong> 1,2,3,4,5 → Median = <strong>3</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-stat">Stats</span>
+        <h3>MODE — Sab se Zyada</h3>
+        <p>Sab se zyada baar aane wali value.</p>
+        <div class="formula-box">=MODE(A1:A10)</div>
+        <div class="example-box"><strong>Example:</strong> 1,2,2,3,4 → Mode = <strong>2</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-stat">Stats</span>
+        <h3>STDEV — Inharaf</h3>
+        <p>Standard deviation nikalti hai.</p>
+        <div class="formula-box">=STDEV(A1:A10)</div>
+        <div class="example-box"><strong>Use:</strong> Data ki variation ya spread dekhne ke liye.</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-stat">Stats</span>
+        <h3>COUNTIF — Shart ke Sath Count</h3>
+        <p>Sirf wahi cells jo criteria match karein.</p>
+        <div class="formula-box">=COUNTIF(range, criteria)</div>
+        <div class="example-box"><strong>Example:</strong> =COUNTIF(A1:A10,"Pass") = Kitne Pass hain</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TEXT FORMULAS -->
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent2)">🔤 Text Formulas</h2>
+    <div class="grid grid-2">
+
+      <div class="card">
+        <span class="card-tag tag-text">Text</span>
+        <h3>CONCATENATE / CONCAT</h3>
+        <p>Do ya zyada texts ko mila deta hai.</p>
+        <div class="formula-box">=CONCAT(A1," ",B1)<br>=A1&" "&B1</div>
+        <div class="example-box"><strong>Example:</strong> "Tahir" + "Saeed" → <strong>Tahir Saeed</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-text">Text</span>
+        <h3>LEFT — Bayi Taraf</h3>
+        <p>Text ke left se characters leta hai.</p>
+        <div class="formula-box">=LEFT(text, num_chars)</div>
+        <div class="example-box"><strong>Example:</strong> =LEFT("Faisalabad", 6) = <strong>Faisal</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-text">Text</span>
+        <h3>RIGHT — Dayi Taraf</h3>
+        <p>Text ke right se characters leta hai.</p>
+        <div class="formula-box">=RIGHT(text, num_chars)</div>
+        <div class="example-box"><strong>Example:</strong> =RIGHT("Faisalabad", 4) = <strong>abad</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-text">Text</span>
+        <h3>MID — Darmiyan Se</h3>
+        <p>Text ke beech se characters nikalti hai.</p>
+        <div class="formula-box">=MID(text, start_num, num_chars)</div>
+        <div class="example-box"><strong>Example:</strong> =MID("Faisalabad",7,3) = <strong>aba</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-text">Text</span>
+        <h3>LEN — Lambai</h3>
+        <p>Text ki length (characters count) deta hai.</p>
+        <div class="formula-box">=LEN(text)</div>
+        <div class="example-box"><strong>Example:</strong> =LEN("Pakistan") = <strong>8</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-text">Text</span>
+        <h3>UPPER / LOWER / PROPER</h3>
+        <p>Text ka case change karta hai.</p>
+        <div class="formula-box">=UPPER("tahir") → TAHIR<br>=LOWER("TAHIR") → tahir<br>=PROPER("tahir saeed") → Tahir Saeed</div>
+        <div class="example-box"><strong>Use:</strong> Names ya headings ko format karne ke liye.</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-text">Text</span>
+        <h3>TRIM — Fazool Space Hatao</h3>
+        <p>Aage peeche ki extra spaces hata deta hai.</p>
+        <div class="formula-box">=TRIM(text)</div>
+        <div class="example-box"><strong>Example:</strong> =TRIM("  Tahir  ") = <strong>"Tahir"</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-text">Text</span>
+        <h3>FIND / SEARCH</h3>
+        <p>Text mein kisi character ki position dhundh ta hai.</p>
+        <div class="formula-box">=FIND("a", "Pakistan")</div>
+        <div class="example-box"><strong>Example:</strong> =FIND("k", "Pakistan") = <strong>4</strong> (position)</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-text">Text</span>
+        <h3>REPLACE / SUBSTITUTE</h3>
+        <p>Text ka koi hissa badal deta hai.</p>
+        <div class="formula-box">=SUBSTITUTE("Hello World","World","Pakistan")</div>
+        <div class="example-box"><strong>Result:</strong> <strong>Hello Pakistan</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-text">Text</span>
+        <h3>TEXT — Format Karo</h3>
+        <p>Number ko formatted text mein badlta hai.</p>
+        <div class="formula-box">=TEXT(A1,"#,##0.00")<br>=TEXT(TODAY(),"DD/MM/YYYY")</div>
+        <div class="example-box"><strong>Example:</strong> =TEXT(1500,"$#,##0") = <strong>$1,500</strong></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LOGICAL -->
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent3)">⚡ Logical Formulas</h2>
+    <div class="grid grid-2">
+
+      <div class="card">
+        <span class="card-tag tag-logical">Logical</span>
+        <h3>IF — Agar</h3>
+        <p>Shart check karta hai aur result deta hai.</p>
+        <div class="formula-box">=IF(condition, value_if_true, value_if_false)</div>
+        <div class="example-box"><strong>Example:</strong> =IF(A1&gt;=50,"Pass","Fail") — 60 → <strong>Pass</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-logical">Logical</span>
+        <h3>IFS — Multiple IF</h3>
+        <p>Kai shart ek saath check karta hai.</p>
+        <div class="formula-box">=IFS(A1&gt;=80,"A",A1&gt;=60,"B",A1&gt;=40,"C",TRUE,"F")</div>
+        <div class="example-box"><strong>Example:</strong> Marks 75 → <strong>Grade B</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-logical">Logical</span>
+        <h3>AND — Aur</h3>
+        <p>Sab shart puri hon tab TRUE.</p>
+        <div class="formula-box">=AND(A1&gt;50, B1="Pass")</div>
+        <div class="example-box"><strong>Example:</strong> Marks&gt;50 AND Attendance&gt;75% → <strong>TRUE/FALSE</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-logical">Logical</span>
+        <h3>OR — Ya</h3>
+        <p>Koi bhi ek shart puri ho tab TRUE.</p>
+        <div class="formula-box">=OR(A1="Lahore", A1="Karachi")</div>
+        <div class="example-box"><strong>Example:</strong> City Lahore ya Karachi ho → <strong>TRUE</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-logical">Logical</span>
+        <h3>NOT — Nahi</h3>
+        <p>TRUE ko FALSE aur FALSE ko TRUE karta hai.</p>
+        <div class="formula-box">=NOT(A1="Absent")</div>
+        <div class="example-box"><strong>Example:</strong> "Present" → <strong>TRUE</strong> | "Absent" → <strong>FALSE</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-logical">Logical</span>
+        <h3>IFERROR — Galti Chupaao</h3>
+        <p>Error aaye to custom message deta hai.</p>
+        <div class="formula-box">=IFERROR(VLOOKUP(...),"Not Found")</div>
+        <div class="example-box"><strong>Use:</strong> #N/A ya #DIV/0! ki jagah apna message likhne ke liye.</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-logical">Logical</span>
+        <h3>ISBLANK — Khali Hai?</h3>
+        <p>Cell khali hai ya nahi check karta hai.</p>
+        <div class="formula-box">=ISBLANK(A1)</div>
+        <div class="example-box"><strong>Example:</strong> Khali cell → <strong>TRUE</strong> | Data ho → <strong>FALSE</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-logical">Logical</span>
+        <h3>ISNUMBER / ISTEXT</h3>
+        <p>Cell mein number ya text hai check karta hai.</p>
+        <div class="formula-box">=ISNUMBER(A1)<br>=ISTEXT(A1)</div>
+        <div class="example-box"><strong>Use:</strong> Data validation ke liye bahut kaam aata hai.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LOOKUP FORMULAS -->
+  <div class="shortcut-group">
+    <h2 style="color:#a78bfa">🔍 Lookup & Reference Formulas</h2>
+    <div class="grid grid-2">
+
+      <div class="card">
+        <span class="card-tag tag-lookup">Lookup</span>
+        <h3>VLOOKUP — Upar Se Dhundho</h3>
+        <p>Column mein se koi value dhundh ke uske sath wali value deta hai.</p>
+        <div class="formula-box">=VLOOKUP(lookup_value, table_array, col_index, [range_lookup])</div>
+        <div class="example-box"><strong>Example:</strong> =VLOOKUP("A101",A:D,3,0) — Roll No se Name dhundho</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-lookup">Lookup</span>
+        <h3>HLOOKUP — Barabar Dhundho</h3>
+        <p>Row mein se value dhundh ta hai.</p>
+        <div class="formula-box">=HLOOKUP(lookup_value, table_array, row_index, [range_lookup])</div>
+        <div class="example-box"><strong>Use:</strong> Jab data rows mein ho columns mein nahi.</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-lookup">Lookup</span>
+        <h3>XLOOKUP — Nayi Dhundh (Modern)</h3>
+        <p>VLOOKUP ka behtareen replacement.</p>
+        <div class="formula-box">=XLOOKUP(lookup_value, lookup_array, return_array)</div>
+        <div class="example-box"><strong>Example:</strong> =XLOOKUP("Tahir",A:A,B:B) — Name se ID lo</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-lookup">Lookup</span>
+        <h3>INDEX + MATCH — Powerful Combo</h3>
+        <p>VLOOKUP se zyada flexible lookup.</p>
+        <div class="formula-box">=INDEX(return_range, MATCH(lookup_value, lookup_range, 0))</div>
+        <div class="example-box"><strong>Example:</strong> Kisi bhi column se kisi bhi taraf dhundho</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-lookup">Lookup</span>
+        <h3>MATCH — Position Dhundho</h3>
+        <p>Value ki position (row/column number) deta hai.</p>
+        <div class="formula-box">=MATCH(lookup_value, lookup_array, [match_type])</div>
+        <div class="example-box"><strong>Example:</strong> =MATCH("Tahir",A1:A10,0) = <strong>3</strong> (3rd row mein hai)</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-lookup">Lookup</span>
+        <h3>OFFSET — Shift Karo</h3>
+        <p>Starting cell se kisi number of rows/cols door ki cell deta hai.</p>
+        <div class="formula-box">=OFFSET(reference, rows, cols, [height], [width])</div>
+        <div class="example-box"><strong>Example:</strong> =OFFSET(A1,2,1) = C3 ki value</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-lookup">Lookup</span>
+        <h3>CHOOSE — Intikhaab</h3>
+        <p>Index number ke mutabiq value return karta hai.</p>
+        <div class="formula-box">=CHOOSE(index_num, val1, val2, val3, ...)</div>
+        <div class="example-box"><strong>Example:</strong> =CHOOSE(2,"Jan","Feb","Mar") = <strong>Feb</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-lookup">Lookup</span>
+        <h3>ROW / COLUMN</h3>
+        <p>Cell ki row ya column number deta hai.</p>
+        <div class="formula-box">=ROW(A5) → 5<br>=COLUMN(C1) → 3</div>
+        <div class="example-box"><strong>Use:</strong> Dynamic numbering ya conditional formatting mein.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DATE FORMULAS -->
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent4)">📅 Date & Time Formulas</h2>
+    <div class="grid grid-2">
+
+      <div class="card">
+        <span class="card-tag tag-date">Date</span>
+        <h3>TODAY — Aaj ki Tarikh</h3>
+        <p>Aaj ki date automatically deta hai.</p>
+        <div class="formula-box">=TODAY()</div>
+        <div class="example-box"><strong>Example:</strong> =TODAY() = <strong>24/06/2026</strong> (automatically update hoti hai)</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-date">Date</span>
+        <h3>NOW — Abhi ka Waqt</h3>
+        <p>Current date aur time deta hai.</p>
+        <div class="formula-box">=NOW()</div>
+        <div class="example-box"><strong>Example:</strong> =NOW() = <strong>24/06/2026 10:30</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-date">Date</span>
+        <h3>DATE — Tarikh Banao</h3>
+        <p>Year, Month, Day se date banata hai.</p>
+        <div class="formula-box">=DATE(year, month, day)</div>
+        <div class="example-box"><strong>Example:</strong> =DATE(2026,6,24) = <strong>24-Jun-2026</strong></div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-date">Date</span>
+        <h3>DAY / MONTH / YEAR</h3>
+        <p>Date se din, maah ya saal nikalta hai.</p>
+        <div class="formula-box">=DAY(A1) | =MONTH(A1) | =YEAR(A1)</div>
+        <div class="example-box"><strong>Example:</strong> Date 24/06/2026 → DAY=24, MONTH=6, YEAR=2026</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-date">Date</span>
+        <h3>DATEDIF — Farq Nikalo</h3>
+        <p>Do dates ke beech ka farq nikalti hai.</p>
+        <div class="formula-box">=DATEDIF(start_date, end_date, "Y")</div>
+        <div class="example-box"><strong>Example:</strong> Umar nikalne ke liye: =DATEDIF(DOB, TODAY(), "Y")</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-date">Date</span>
+        <h3>WEEKDAY — Din kaunsa</h3>
+        <p>Date ka weekday number deta hai (1=Sun, 7=Sat).</p>
+        <div class="formula-box">=WEEKDAY(date, [return_type])</div>
+        <div class="example-box"><strong>Example:</strong> =WEEKDAY(TODAY()) = <strong>4</strong> (Wednesday)</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-date">Date</span>
+        <h3>NETWORKDAYS — Kaam ke Din</h3>
+        <p>Weekend aur chutti chodte hue working days ginne ke liye.</p>
+        <div class="formula-box">=NETWORKDAYS(start_date, end_date, [holidays])</div>
+        <div class="example-box"><strong>Use:</strong> Project deadline calculate karne ke liye.</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-date">Date</span>
+        <h3>EDATE — Maah Baad</h3>
+        <p>Kisi tarikh se n maah baad/pehle ki date deta hai.</p>
+        <div class="formula-box">=EDATE(start_date, months)</div>
+        <div class="example-box"><strong>Example:</strong> =EDATE(TODAY(),3) = 3 mahine baad ki date</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FINANCIAL -->
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent4)">💰 Financial Formulas</h2>
+    <div class="grid grid-2">
+
+      <div class="card">
+        <span class="card-tag tag-financial">Finance</span>
+        <h3>PMT — Qist Nikalo</h3>
+        <p>Loan ki monthly installment nikalti hai.</p>
+        <div class="formula-box">=PMT(rate, nper, pv)</div>
+        <div class="example-box"><strong>Example:</strong> =PMT(0.01,12,-100000) = Monthly installment of 1 Lac loan</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-financial">Finance</span>
+        <h3>FV — Mustaqbil ki Qeemat</h3>
+        <p>Investment ki future value nikalti hai.</p>
+        <div class="formula-box">=FV(rate, nper, pmt, [pv])</div>
+        <div class="example-box"><strong>Use:</strong> 5 saal mein savings kitni ho gi?</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-financial">Finance</span>
+        <h3>PV — Maujuda Qeemat</h3>
+        <p>Future payments ki present value.</p>
+        <div class="formula-box">=PV(rate, nper, pmt)</div>
+        <div class="example-box"><strong>Use:</strong> Investment return analysis ke liye.</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-financial">Finance</span>
+        <h3>NPV — Munafa Andaza</h3>
+        <p>Net present value of cash flows.</p>
+        <div class="formula-box">=NPV(rate, value1, value2, ...)</div>
+        <div class="example-box"><strong>Use:</strong> Business investment decision ke liye.</div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /excel -->
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 2: MS WORD
+═══════════════════════════════════════════════ -->
+<div id="word" class="section">
+  <div class="section-title" style="color:var(--accent2)">📝 MS Word — All Shortcut Keys</div>
+  <div class="section-sub">Word mein tezi se kaam karne ke liye zaroori shortcuts</div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent2)">📁 File Management</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>N</kbd></td><td>Naya document kholo</td><td>Naya page shuru karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>O</kbd></td><td>File kholo</td><td>Purana document open karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>S</kbd></td><td>Save karo</td><td>Document save karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>S</kbd></td><td>Save As</td><td>Nayi jagah save karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>W</kbd></td><td>Document band karo</td><td>Current file close karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>P</kbd></td><td>Print karo</td><td>Printer dialog kholo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Z</kbd></td><td>Undo</td><td>Pichla kaam wapis lo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Y</kbd></td><td>Redo</td><td>Undo wapis karo</td></tr>
+      <tr><td><kbd>F12</kbd></td><td>Save As dialog</td><td>Naame se save karo</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>F4</kbd></td><td>Word band karo</td><td>Program close karo</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent2)">✂️ Cut, Copy, Paste</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>C</kbd></td><td>Copy karo</td><td>Text ya image copy karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>X</kbd></td><td>Cut karo</td><td>Text uthao aur hatao</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>V</kbd></td><td>Paste karo</td><td>Copied text lagao</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>V</kbd></td><td>Paste Special</td><td>Format ke bagair paste karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>A</kbd></td><td>Sab select karo</td><td>Pura document select</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>D</kbd></td><td>Duplicate karo</td><td>Selected text copy ho jaye</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent2)">🔤 Text Formatting</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>B</kbd></td><td><strong>Bold</strong></td><td>Text mota karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>I</kbd></td><td><em>Italic</em></td><td>Text tircha karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>U</kbd></td><td>Underline</td><td>Nichli lakeer lagao</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>D</kbd></td><td>Double Underline</td><td>Dohari lakeer</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>K</kbd></td><td>Small Caps</td><td>CHOTE BADE HARF</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>=</kbd></td><td>Superscript</td><td>X² — Upar wala harf</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>=</kbd></td><td>Subscript</td><td>H₂O — Neeche wala harf</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>C</kbd></td><td>Format Copy</td><td>Ek jagah ka format copy karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>V</kbd></td><td>Format Paste</td><td>Copied format lagao</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Space</kbd></td><td>Format Hataao</td><td>Default format wapis lao</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>F</kbd></td><td>Font dialog</td><td>Font box kholo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>P</kbd></td><td>Font size box</td><td>Size change karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>]</kbd></td><td>Font barhao</td><td>Size 1pt barh jaye</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>[</kbd></td><td>Font ghataao</td><td>Size 1pt ghat jaye</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>&gt;</kbd></td><td>Font baro karo</td><td>Jaldi size barha lo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>&lt;</kbd></td><td>Font chota karo</td><td>Jaldi size gha'ta lo</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent2)">📐 Paragraph & Alignment</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>L</kbd></td><td>Left Align</td><td>Text bayi taraf</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>R</kbd></td><td>Right Align</td><td>Text dayi taraf</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>E</kbd></td><td>Center</td><td>Text darmiyan</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>J</kbd></td><td>Justify</td><td>Dono taraf barabar</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>1</kbd></td><td>Single spacing</td><td>Ek line gap</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>2</kbd></td><td>Double spacing</td><td>Do line gap</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>5</kbd></td><td>1.5 spacing</td><td>Dedh line gap</td></tr>
+      <tr><td><kbd>Tab</kbd></td><td>Indent</td><td>Paragraph androon karo</td></tr>
+      <tr><td><kbd>Shift</kbd><kbd>Tab</kbd></td><td>Outdent</td><td>Paragraph bahir karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>M</kbd></td><td>Indent barhaao</td><td>Left se andar karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>M</kbd></td><td>Indent ghataao</td><td>Left se bahir karo</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent2)">🎨 Styles & Headings</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>1</kbd></td><td>Heading 1</td><td>Bari heading lagao</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>2</kbd></td><td>Heading 2</td><td>Darmiyan heading</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>3</kbd></td><td>Heading 3</td><td>Choti heading</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>N</kbd></td><td>Normal Style</td><td>Normal text wapis</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>Shift</kbd><kbd>L</kbd></td><td>List Style</td><td>Fehrist style</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent2)">🔍 Search & Navigation</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>F</kbd></td><td>Dhundho</td><td>Text search karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>H</kbd></td><td>Replace karo</td><td>Ek lafz doosre se badlo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>G</kbd></td><td>Go To</td><td>Seedha page par jao</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Home</kbd></td><td>Shuruaat par jao</td><td>Document ki pehli line</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>End</kbd></td><td>Akhir par jao</td><td>Document ki aakhri line</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>→</kbd></td><td>Agle lafz par jao</td><td>Ek lafz aage</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>←</kbd></td><td>Pichle lafz par jao</td><td>Ek lafz peeche</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>↑</kbd></td><td>Pichla paragraph</td><td>Upar ka paragraph</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>↓</kbd></td><td>Agla paragraph</td><td>Neeche ka paragraph</td></tr>
+      <tr><td><kbd>Page Up</kbd></td><td>Upar scroll</td><td>Ek screen upar</td></tr>
+      <tr><td><kbd>Page Down</kbd></td><td>Neeche scroll</td><td>Ek screen neeche</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent2)">📋 Tables & Lists</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Tab</kbd></td><td>Table mein agle cell par jao</td><td>Next cell</td></tr>
+      <tr><td><kbd>Shift</kbd><kbd>Tab</kbd></td><td>Pichle cell par jao</td><td>Previous cell</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>Home</kbd></td><td>Row ki pehli cell</td><td>Row start</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>End</kbd></td><td>Row ki akhri cell</td><td>Row end</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>L</kbd></td><td>Bullet list shuru karo</td><td>• List item</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>Shift</kbd><kbd>D</kbd></td><td>Date daalo</td><td>Aaj ki tarikh</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>Shift</kbd><kbd>T</kbd></td><td>Time daalo</td><td>Abhi ka waqt</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent2)">🖊️ Review & Spelling</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>F7</kbd></td><td>Spell Check</td><td>Imlaa check karo</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>F7</kbd></td><td>Agali Galti</td><td>Next spelling mistake</td></tr>
+      <tr><td><kbd>Shift</kbd><kbd>F7</kbd></td><td>Thesaurus</td><td>Synonyms dhundho</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>E</kbd></td><td>Track Changes</td><td>Tabdiliyan track karo</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>Ctrl</kbd><kbd>M</kbd></td><td>Comment daalo</td><td>Note likho</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent2)">🖥️ View Controls</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>*</kbd></td><td>Formatting marks</td><td>Hidden marks dikhao</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>Ctrl</kbd><kbd>P</kbd></td><td>Print Layout</td><td>Print view</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>Ctrl</kbd><kbd>O</kbd></td><td>Outline View</td><td>Khaka view</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>Ctrl</kbd><kbd>N</kbd></td><td>Draft View</td><td>Sadah view</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>F2</kbd></td><td>Print Preview</td><td>Print se pehle dekho</td></tr>
+      <tr><td><kbd>F11</kbd></td><td>Full Screen</td><td>Poori screen par karo</td></tr>
+    </table>
+  </div>
+
+</div><!-- /word -->
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 3: COMPUTER SHORTCUTS
+═══════════════════════════════════════════════ -->
+<div id="computer" class="section">
+  <div class="section-title" style="color:var(--accent3)">💻 Computer — All Shortcut Keys</div>
+  <div class="section-sub">Windows shortcuts — har kaam ke liye asaan raasten</div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent3)">🪟 Windows Key Shortcuts</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Win</kbd></td><td>Start Menu</td><td>Start menu kholna</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>D</kbd></td><td>Desktop dikhao</td><td>Sab windows chupa do</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>E</kbd></td><td>File Explorer</td><td>My Computer kholo</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>L</kbd></td><td>Computer lock karo</td><td>Screen band karo</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>R</kbd></td><td>Run dialog</td><td>Command chalao</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>I</kbd></td><td>Settings</td><td>System settings kholo</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>S</kbd></td><td>Search</td><td>Windows search karo</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>P</kbd></td><td>Projection</td><td>Screen share/extend karo</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>Tab</kbd></td><td>Task View</td><td>Sab windows dekho</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>↑</kbd></td><td>Maximize</td><td>Window badi karo</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>↓</kbd></td><td>Minimize</td><td>Window choti karo</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>→</kbd></td><td>Right snap</td><td>Screen ke dayi karo</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>←</kbd></td><td>Left snap</td><td>Screen ke bayi karo</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>M</kbd></td><td>Sab minimize karo</td><td>Desktop clear karo</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>X</kbd></td><td>Quick menu</td><td>Power user menu</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>K</kbd></td><td>Connect</td><td>Bluetooth/wireless device</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>A</kbd></td><td>Action Center</td><td>Notifications panel</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>N</kbd></td><td>Notification panel</td><td>Notifications dekho</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>V</kbd></td><td>Clipboard history</td><td>Pichle copy items</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>.</kbd></td><td>Emoji picker</td><td>Emoji daalo 😊</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>PrtScn</kbd></td><td>Screenshot save karo</td><td>Screenshot file mein</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>Shift</kbd><kbd>S</kbd></td><td>Snip tool</td><td>Hissa screenshot lo</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent3)">🗂️ File & Folder Management</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>C</kbd></td><td>Copy</td><td>File copy karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>X</kbd></td><td>Cut</td><td>File uthao</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>V</kbd></td><td>Paste</td><td>File rakho</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Z</kbd></td><td>Undo</td><td>Galti wapis lo</td></tr>
+      <tr><td><kbd>Delete</kbd></td><td>Recycle Bin mein bhejo</td><td>File hatao</td></tr>
+      <tr><td><kbd>Shift</kbd><kbd>Delete</kbd></td><td>Hamesha ke liye mithao</td><td>Permanent delete</td></tr>
+      <tr><td><kbd>F2</kbd></td><td>Rename karo</td><td>File ka naam badlo</td></tr>
+      <tr><td><kbd>F5</kbd></td><td>Refresh karo</td><td>Screen taaza karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>A</kbd></td><td>Sab select karo</td><td>Sari files choose karo</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>Enter</kbd></td><td>Properties</td><td>File info dekho</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>N</kbd></td><td>Nai window</td><td>Explorer new window</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>W</kbd></td><td>Window band karo</td><td>Explorer close karo</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>←</kbd></td><td>Wapis jao</td><td>Back</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>→</kbd></td><td>Aage jao</td><td>Forward</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>↑</kbd></td><td>Upar ka folder</td><td>Parent folder</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>N</kbd></td><td>Naya folder</td><td>New folder banao</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent3)">🖥️ Window Management</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Alt</kbd><kbd>Tab</kbd></td><td>Windows switch karo</td><td>Open programs badlna</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>F4</kbd></td><td>Program band karo</td><td>Active window close</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>Del</kbd></td><td>Security screen</td><td>Task Manager rasta</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>Esc</kbd></td><td>Task Manager</td><td>Seedha task manager</td></tr>
+      <tr><td><kbd>F11</kbd></td><td>Full screen</td><td>Puri screen par karo</td></tr>
+      <tr><td><kbd>PrtScn</kbd></td><td>Screenshot</td><td>Clipboard mein copy</td></tr>
+      <tr><td><kbd>Alt</kbd><kbd>PrtScn</kbd></td><td>Active window screenshot</td><td>Sirf current window</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Esc</kbd></td><td>Start menu</td><td>Win key alternative</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent3)">🌐 Browser Shortcuts</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>T</kbd></td><td>Nai tab kholo</td><td>New tab</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>W</kbd></td><td>Tab band karo</td><td>Close current tab</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>T</kbd></td><td>Band tab wapis</td><td>Reopen closed tab</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Tab</kbd></td><td>Agli tab</td><td>Next tab</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>Tab</kbd></td><td>Pichli tab</td><td>Previous tab</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>R</kbd> / <kbd>F5</kbd></td><td>Reload karo</td><td>Page taaza karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>L</kbd></td><td>Address bar</td><td>URL type karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>D</kbd></td><td>Bookmark karo</td><td>Page save karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>H</kbd></td><td>History dekho</td><td>Browser history</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>J</kbd></td><td>Downloads dekho</td><td>Download history</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>+</kbd></td><td>Zoom in</td><td>Bada karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>-</kbd></td><td>Zoom out</td><td>Chota karo</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>0</kbd></td><td>Normal zoom</td><td>100% wapis</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>N</kbd></td><td>Incognito mode</td><td>Private window</td></tr>
+      <tr><td><kbd>F12</kbd></td><td>Developer tools</td><td>Web dev tools</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent3)">⌨️ Text Editing (Universal)</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Home</kbd></td><td>Line ki shuruaat</td><td>Line ke pehle character par</td></tr>
+      <tr><td><kbd>End</kbd></td><td>Line ka akhir</td><td>Line ke aakhri character par</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Home</kbd></td><td>Document shuruaat</td><td>Bilkul upar</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>End</kbd></td><td>Document akhir</td><td>Bilkul neeche</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>→</kbd></td><td>Agle lafz par</td><td>Word by word aage</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>←</kbd></td><td>Pichle lafz par</td><td>Word by word peeche</td></tr>
+      <tr><td><kbd>Backspace</kbd></td><td>Pichla character mithao</td><td>Ek harf peeche se</td></tr>
+      <tr><td><kbd>Delete</kbd></td><td>Agla character mithao</td><td>Ek harf aage se</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Backspace</kbd></td><td>Pichla lafz mithao</td><td>Pura word peeche se</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Delete</kbd></td><td>Agla lafz mithao</td><td>Pura word aage se</td></tr>
+      <tr><td><kbd>Shift</kbd><kbd>→</kbd></td><td>Ek harf select karo</td><td>Character by character</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>→</kbd></td><td>Pura lafz select karo</td><td>Word by word select</td></tr>
+      <tr><td><kbd>Shift</kbd><kbd>Home</kbd></td><td>Line shuruaat tak select</td><td>Cursor se line start tak</td></tr>
+      <tr><td><kbd>Shift</kbd><kbd>End</kbd></td><td>Line akhir tak select</td><td>Cursor se line end tak</td></tr>
+      <tr><td><kbd>Insert</kbd></td><td>Overtype mode</td><td>Type over existing text</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent3)">🔧 System & Utility</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>F1</kbd></td><td>Help dekho</td><td>Program ka help</td></tr>
+      <tr><td><kbd>F3</kbd></td><td>Search karo</td><td>Explorer search</td></tr>
+      <tr><td><kbd>F5</kbd></td><td>Refresh karo</td><td>Screen update karo</td></tr>
+      <tr><td><kbd>F10</kbd></td><td>Menu bar activate</td><td>Keyboard se menu</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>Pause</kbd></td><td>System properties</td><td>PC info dekho</td></tr>
+      <tr><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>Esc</kbd></td><td>Task Manager</td><td>Running programs dekho</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>+</kbd></td><td>Magnifier on</td><td>Screen zoom karo</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>-</kbd></td><td>Magnifier off</td><td>Zoom band karo</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>U</kbd></td><td>Accessibility</td><td>Ease of access</td></tr>
+      <tr><td><kbd>Num Lock</kbd></td><td>Number pad on/off</td><td>Numeric keypad toggle</td></tr>
+      <tr><td><kbd>Caps Lock</kbd></td><td>Bade harf on/off</td><td>CAPITAL letters</td></tr>
+      <tr><td><kbd>Scroll Lock</kbd></td><td>Scroll lock</td><td>Scrolling behavior</td></tr>
+      <tr><td><kbd>Right Click</kbd> → <kbd>N</kbd></td><td>Naya file/folder</td><td>Context menu new</td></tr>
+    </table>
+  </div>
+
+  <div class="shortcut-group">
+    <h2 style="color:var(--accent3)">🎮 Virtual Desktops</h2>
+    <table class="shortcut-table">
+      <tr><th>Shortcut</th><th>Kaam (Action)</th><th>Misaal (Example)</th></tr>
+      <tr><td><kbd>Win</kbd><kbd>Ctrl</kbd><kbd>D</kbd></td><td>Naya virtual desktop</td><td>Desktop 2 banao</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>Ctrl</kbd><kbd>→</kbd></td><td>Agla desktop</td><td>Desktop 2 par jao</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>Ctrl</kbd><kbd>←</kbd></td><td>Pichla desktop</td><td>Desktop 1 wapis</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>Ctrl</kbd><kbd>F4</kbd></td><td>Desktop band karo</td><td>Current virtual desktop close</td></tr>
+      <tr><td><kbd>Win</kbd><kbd>Tab</kbd></td><td>Task View</td><td>Sab desktops dekho</td></tr>
+    </table>
+  </div>
+
+</div><!-- /computer -->
+
+<!-- FOOTER -->
+<footer>
+  <span class="credit">✨ Credit By: Tahir Saeed ✨</span>
+  <p>Sab kuch seekho — MS Excel • MS Word • Computer Shortcuts</p>
+  <p style="margin-top:8px; font-size:.78rem; color:#4a4f70;">© 2026 Computer Skills Hub — All Rights Reserved</p>
+</footer>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
